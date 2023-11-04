@@ -3,6 +3,7 @@
 // グローバル変数
 let modelData;
 let control;
+let constants;
 let isInit = false;
 
 /**
@@ -12,6 +13,9 @@ let isInit = false;
  */
 export function init() {
     (async () => {
+        await import("./constants.js").then((data) => {
+            constants = data;
+        });
         await import("./control.js").then((data) => {
             control = data;
         });
@@ -75,7 +79,7 @@ function viewData() {
         for (let xIndex = 0; xIndex < x; xIndex++) {
             const cell = getCell(xIndex, yIndex);
             if (cell) {
-                cell.textContent = data[xIndex][yIndex];
+                cell.textContent = constants.ICON_TYPE[data[xIndex][yIndex]];
             }
         }
     }
