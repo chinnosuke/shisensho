@@ -4,3 +4,7 @@ td {
     border: solid;
     text-align: center;
 }
+
+.select-cell {
+    background-color: red;
+}

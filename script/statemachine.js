@@ -3,6 +3,7 @@
 // グローバル変数
 let constants;
 let control;
+let state;
 
 /**
  * 初期化
@@ -25,12 +26,20 @@ export function init() {
 }
 
 /**
+ * ステート取得
+ * @function
+ * @returns {void}
+ */
+export function getState() {
+    return state;
+}
+
+/**
  * @function
  * @param {constants.STATE_MAIN} input_state メインステート
  * @returns {void}
  */
 export function setState(input_state) {
-    console.log(input_state);
     switch (input_state) {
         case constants.STATE_MAIN.INIT:
             // ビュー初期化
@@ -39,24 +48,27 @@ export function setState(input_state) {
             model.init(10, 10);
             view.init();
             control.init();
+            input_state = constants.STATE_MAIN.IDLE;
             break;
         case constants.STATE_MAIN.IDLE:
+            // クリック待機
             break;
         case constants.STATE_MAIN.CLICK_FIRST:
-            if (state != constants.STATE_MAIN.IDLE) {
-                return;
-            }
-            console.log("first");
+            // クリック1回目
+            model.firstClickEvent();
+            return;
+        case constants.STATE_MAIN.CLICK_SECOND_IDLE:
+            // 2回目クリック待機
             break;
         case constants.STATE_MAIN.CLICK_SECOND:
-            if (state != constants.STATE_MAIN.CLICK_SECOND) {
-                return;
-            }
-            console.log("first")
-            break;
+            // クリック2回目
+            model.secondClickEvent();
+            input_state = constants.STATE_MAIN.IDLE;
+            return;
+        case constants.STATE_MAIN.TIME_WAIT:
 
+            break;
     }
 
     state = input_state;
-
 }

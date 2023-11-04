@@ -6,11 +6,6 @@ let control;
 let statemachine;
 let state;
 
-let data = [10][10];
-
-
-
-
 /**
  * メイン関数
  * @function

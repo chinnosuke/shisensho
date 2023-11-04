@@ -34,23 +34,23 @@ function createTable() {
         return;
     }
 
-    let body = document.querySelector('body');
+    const body = document.querySelector('body');
     if (!body) {
         return;
     }
 
-    let data = modelData.getData()
-    let x = data.length;
-    let y = data[0].length;
+    const data = modelData.getData()
+    const x = data.length;
+    const y = data[0].length;
 
-    let table = document.createElement('table');
+    const table = document.createElement('table');
     body.append(table);
 
     for (let yIndex = 0; yIndex < y; yIndex++) {
-        let tr = document.createElement('tr');
+        const tr = document.createElement('tr');
         table.append(tr);
         for (let xIndex = 0; xIndex < x; xIndex++) {
-            let td = document.createElement('td');
+            const td = document.createElement('td');
             td.setAttribute('id', `cell_${xIndex}_${yIndex}`);
             // クリックイベント
             td.addEventListener('click', control.cellClick);
@@ -58,8 +58,6 @@ function createTable() {
             tr.append(td);
         }
     }
-
-
     isInit = true;
 }
 
@@ -69,13 +67,13 @@ function createTable() {
  * @returns {void}
  */
 function viewData() {
-    let data = modelData.getData()
-    let x = data.length;
-    let y = data[0].length;
+    const data = modelData.getData()
+    const x = data.length;
+    const y = data[0].length;
 
     for (let yIndex = 0; yIndex < y; yIndex++) {
         for (let xIndex = 0; xIndex < x; xIndex++) {
-            let cell = getCell(xIndex, yIndex);
+            const cell = getCell(xIndex, yIndex);
             if (cell) {
                 cell.textContent = data[xIndex][yIndex];
             }
@@ -88,9 +86,33 @@ function viewData() {
  * @function
  * @param {mumber} x x座標
  * @param {mumber} y y座標 
- * @returns {HTMMLElement} テーブルセルエレメント
+ * @returns {Element} テーブルセルエレメント
  */
 function getCell(x, y) {
     let cell = document.querySelector(`#cell_${x}_${y}`);
     return cell;
+}
+
+/**
+ * セル選択色設定
+ * @function
+ * @param {number} x座標
+ * @param {number} y座標
+ * @returns {void}
+ */
+export function setSelectCellColor(x, y) {
+    const cell = getCell(x, y);
+    cell.classList.add('select-cell');
+}
+
+/**
+ * セル選択解除色設定
+ * @function
+ * @param {number} x座標
+ * @param {number} y座標
+ * @returns {void}
+ */
+export function setUnSelectCellColor(x, y) {
+    const cell = getCell(x, y);
+    cell.classList.remove('select-cell');
 }

@@ -33,8 +33,20 @@ export function init() {
  */
 export function cellClick(e) {
     let data = e.currentTarget.getAttribute('id').split('_');
-    let x = data[1];
-    let y = data[2];
-    console.log(x, y);
-    statemachine.setState(constants.STATE_MAIN.IDLE);
+    const x = data[1];
+    const y = data[2];
+    model.setSelectPos(x, y);
+    switch (statemachine.getState()) {
+        case constants.STATE_MAIN.IDLE:
+            statemachine.setState(constants.STATE_MAIN.CLICK_FIRST);
+
+            break;
+        case constants.STATE_MAIN.CLICK_SECOND_IDLE:
+            statemachine.setState(constants.STATE_MAIN.CLICK_SECOND);
+            break;
+        case constants.STATE_MAIN.CLICK_SECOND:
+            break;
+
+
+    }
 }
