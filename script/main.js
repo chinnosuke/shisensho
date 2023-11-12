@@ -16,7 +16,6 @@ function main() {
     init().then(() => {
 
         statemachine.init();
-        //        statemachine.setState(constants.STATE_MAIN.INIT);
     });
 }
 

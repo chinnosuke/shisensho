@@ -3,9 +3,9 @@
 // 縦横サイズ
 export const WIDTH = 10;
 export const HEIGHT = 10;
-export const ICON_PAIR_COUNT = 20;
+export const ICON_PAIR_COUNT = 40;
 export const ICON_TYPE = [
-    "●", "▲", "■", "×", "△", "□", "∴", "◇", "◆"
+    "","●", "▲", "■", "×", "△", "□", "∴", "◇", "◆","◎","☆","★","▼","▽"
 ];
 
 // メインステート

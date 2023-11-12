@@ -23,7 +23,7 @@ export function init() {
             modelData = data;
             // テーブルを作成
             createTable();
-            viewData();
+            viewTableData();
         });
     })();
 }
@@ -70,18 +70,31 @@ function createTable() {
  * @function
  * @returns {void}
  */
-function viewData() {
+function viewTableData() {
     const data = modelData.getData()
     const x = data.length;
     const y = data[0].length;
 
     for (let yIndex = 0; yIndex < y; yIndex++) {
         for (let xIndex = 0; xIndex < x; xIndex++) {
-            const cell = getCell(xIndex, yIndex);
-            if (cell) {
-                cell.textContent = constants.ICON_TYPE[data[xIndex][yIndex]];
-            }
+            viewCellData(xIndex, yIndex, data);
         }
+    }
+}
+
+
+/**
+ * セルデータ表示
+ * @function
+ * @param {number} xIndex x座標
+ * @param {number} yIndex y座標
+ * @param {number[][]} data データ
+ * @returns {void}
+ */
+export function viewCellData(xIndex, yIndex, data) {
+    const cell = getCell(xIndex, yIndex);
+    if (cell) {
+        cell.textContent = constants.ICON_TYPE[data[xIndex][yIndex]];
     }
 }
 
@@ -100,8 +113,8 @@ function getCell(x, y) {
 /**
  * セル選択色設定
  * @function
- * @param {number} x座標
- * @param {number} y座標
+ * @param {number} x x座標
+ * @param {number} y y座標
  * @returns {void}
  */
 export function setSelectCellColor(x, y) {
@@ -112,11 +125,45 @@ export function setSelectCellColor(x, y) {
 /**
  * セル選択解除色設定
  * @function
- * @param {number} x座標
- * @param {number} y座標
+ * @param {number} x x座標
+ * @param {number} y y座標
  * @returns {void}
  */
 export function setUnSelectCellColor(x, y) {
     const cell = getCell(x, y);
     cell.classList.remove('select-cell');
+}
+
+/**
+ * セル導通色設定
+ * @function
+ * @param {[[number,number]]} arr 座標配列 
+ * @returns {void}
+ */
+export function setConnectCellColor(arr) {
+    arr.forEach((data) => {
+        const x = data[0];
+        const y = data[1];
+        const cell = getCell(x, y);
+
+        cell.classList.add('connect-cell');
+    });
+}
+
+/**
+ * セル導通解除色設定
+ * @function
+ * @param {[[number,number]]} arr 座標配列
+ * @returns {void}
+ */
+export function setUnConnectCellColor(arr) {
+    arr.forEach((data) => {
+        const x = data[0];
+        const y = data[1];
+        const cell = getCell(x, y);
+
+        if (cell.classList.contains('connect-cell')) {
+            cell.classList.remove('connect-cell');
+        }
+    });
 }

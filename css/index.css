@@ -8,3 +8,7 @@ td {
 .select-cell {
     background-color: red;
 }
+
+.connect-cell {
+    background-color: blue;
+}
